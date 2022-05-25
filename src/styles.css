@@ -1,0 +1,15 @@
+html,
+body,
+#root,
+.App {
+  margin: 0;
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+}
+
+.chart-container {
+  height: 90vh;
+}
