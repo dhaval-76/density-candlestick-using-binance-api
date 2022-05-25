@@ -24,7 +24,7 @@ const durations = [
   "1d",
   "3d",
   "1w",
-  "1M"
+  "1M",
 ];
 
 function App() {
@@ -43,25 +43,25 @@ function App() {
       height: chartContainerRef.current.clientHeight,
       layout: {
         backgroundColor: "#253248",
-        textColor: "rgba(255, 255, 255, 0.9)"
+        textColor: "rgba(255, 255, 255, 0.9)",
       },
       grid: {
         vertLines: {
-          color: "#334158"
+          color: "#334158",
         },
         horzLines: {
-          color: "#334158"
-        }
+          color: "#334158",
+        },
       },
       crosshair: {
-        mode: CrosshairMode.Normal
+        mode: CrosshairMode.Normal,
       },
       priceScale: {
-        borderColor: "#485c7b"
+        borderColor: "#485c7b",
       },
       timeScale: {
-        borderColor: "#485c7b"
-      }
+        borderColor: "#485c7b",
+      },
     });
 
     candleSeries.current = chart.current.addCandlestickSeries({
@@ -70,7 +70,7 @@ function App() {
       borderDownColor: "#ff4976",
       borderUpColor: "#4bffb5",
       wickDownColor: "#838ca1",
-      wickUpColor: "#838ca1"
+      wickUpColor: "#838ca1",
     });
   }, []);
 
@@ -98,8 +98,8 @@ function App() {
             symbol: asset,
             interval: duration,
             startTime: new Date(moment().subtract(500, "m")).getTime(),
-            endTime: new Date().getTime()
-          }
+            endTime: new Date().getTime(),
+          },
         })
         .then(({ data }) => {
           const candleData = data.map((item) => ({
@@ -107,7 +107,7 @@ function App() {
             open: item[1],
             high: item[2],
             low: item[3],
-            close: item[4]
+            close: item[4],
           }));
 
           candleSeries.current.setData(candleData);
@@ -121,7 +121,7 @@ function App() {
   useEffect(() => {
     if (asset && duration) {
       const binanceSocket = new WebSocket(
-        `wss://stream.binance.com:9443/ws/${asset}@kline_${duration}`
+        `wss://stream.binance.com:9443/ws/${asset.toLowerCase()}@kline_${duration}`
       );
 
       binanceSocket.onmessage = (event) => {
@@ -134,7 +134,7 @@ function App() {
           open: candleStick.o,
           high: candleStick.h,
           low: candleStick.l,
-          close: candleStick.c
+          close: candleStick.c,
         });
       };
 
